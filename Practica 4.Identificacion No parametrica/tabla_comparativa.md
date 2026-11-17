@@ -1,0 +1,11 @@
+# Cuadro Comparativo: Identificación de Sistemas Lineales
+
+| Característica | Desconvolución Numérica | Mínimo Error Cuadrático (LSE) |
+| :--- | :--- | :--- |
+| **Concepto Principal** | Operación matemática inversa directa a la convolución (división de señales). | Método de optimización que busca la respuesta al impulso que minimice la suma de los errores al cuadrado. |
+| **Parámetros Requeridos** | No requiere parámetros adicionales. Trabaja directamente con la totalidad de los vectores $u$ y $y$. | Requiere definir un hiperparámetro crítico: el tamaño de la ventana o "memoria" del modelo ($p$). |
+| **Sensibilidad al Ruido** | **Muy alta.** Al ser una división sucesiva, cualquier pequeño ruido en las mediciones iniciales se amplifica enormemente. | **Baja.** Al buscar la "línea de mejor ajuste", promedia estadísticamente los datos y mitiga el impacto del ruido. |
+| **Estabilidad Matemática** | **Baja.** Los errores se acumulan iterativamente paso a paso. | **Alta.** Resuelve un sistema global $(U^T U)^{-1} U^T y$, garantizando la mejor solución posible para esa ventana de tiempo. |
+| **Ventajas** | - Directo y fácil de entender teóricamente.<br>- Computacionalmente muy rápido para vectores pequeños.<br>- No exige sintonizar el parámetro $p$. | - Altamente robusto en entornos reales con sensores ruidosos.<br>- Produce modelos estables (curvas más suaves y lógicas).<br>- Permite controlar la complejidad del modelo. |
+| **Desventajas** | - En la vida real (con ruido), casi siempre arroja modelos inestables y poco prácticos.<br>- Falla críticamente si la entrada inicial $u(0)$ es cero o cercana a cero. | - Mayor peso computacional por las operaciones y la inversión de la matriz.<br>- Si el valor de $p$ se escoge mal (muy grande), sufre de **sobreajuste (overfitting)**, memorizando el ruido. |
+| **Uso Práctico** | Principalmente pedagógico o para señales extremadamente limpias en simulaciones ideales. | Es el estándar de facto para la identificación paramétrica y no paramétrica en la industria y la investigación. |
